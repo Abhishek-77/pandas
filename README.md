@@ -75,6 +75,8 @@ By using pandas library, we can clean, manupulate data as per the business requi
  * describe()
  * isnull()
  * columns()
+ * mode()
+
 
 
 ## _info()_
@@ -147,6 +149,80 @@ By default, it returns statistics only for numerical columns.
 For categorical columns, use df.describe(include='object').
 
 ![Image](https://github.com/user-attachments/assets/37a43f4e-c36c-44bd-8399-8e891fd2a154)
+
+## .mode()
+In Pandas, the *.mode()* function is used to find the most frequently occurring value(s) in a column or DataFrame. It returns a Series or DataFrame with the mode(s) for each column.
+
+#### 🔹 Syntax:
+
+df.mode()
+
+#### 📌 Parameters:
+   * axis=0 (default) → Finds mode along columns.
+
+   * axis=1 → Finds mode along rows.
+
+   * numeric_only=True → Returns mode for only numeric columns.
+
+   * dropna=True (default) → Ignores NaN values when calculating mode.
+
+
+#### 🔹 Example 1: Finding Mode of a Column
+
+```python
+import pandas as pd
+
+# Sample DataFrame
+data = {'Product': ['Espresso', 'Latte', 'Latte', 'Cappuccino', 'Espresso'],
+        'Price': [3.5, 4.0, 4.0, 4.5, 3.5]}
+
+df = pd.DataFrame(data)
+
+# Find mode of 'Product' column
+print(df['Product'].mode())
+```
+
+✅ Output:
+```python
+0    Espresso
+1       Latte
+dtype: object
+(Since "Espresso" and "Latte" both appear twice, both are returned.)
+```
+#### 🔹 Example 2: Finding Mode for All Columns
+
+``` python
+df.mode()
+```
+✅ Output:
+
+```pyhton
+      Product  Price
+0   Espresso    3.5
+1      Latte    4.0
+
+The mode for Product is "Espresso" and "Latte" (both appear twice).
+The mode for Price is 3.5 and 4.0 (both appear twice).
+```
+#### 🔹 Example 3: Finding Mode Along Rows (axis=1)
+```pyhton
+df.mode(axis=1)
+```
+This finds the most common values per row, but it’s usually more useful for categorical data.
+
+#### 🔹 Handling Missing Values (dropna=False)
+By default, .mode() ignores missing values. To include them:
+```python
+df['Product'].mode(dropna=False)
+```
+
+#### 💡 Key Points
+* .mode() returns ***all*** most frequent values (not just one).
+
+* Works with ***both numbers and text*** (categorical data).
+
+* Can be used ***column-wise (default) or row-wise (axis=1)***.   
+
 
 ## Add a new column
 
